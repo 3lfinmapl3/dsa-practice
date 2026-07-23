@@ -10,17 +10,18 @@ import java.util.HashMap;
 
  public class LevelFive {
     public static void main(String[] args)  {
-        int [] ans = optimizedTwoSum(new int [] {0,12,15,15,27,31}, 27);
-        if (ans.length == 0)
-        {
-            System.out.println("{}");
-        }else {
-            System.out.println("{"+ans[0]+"," +ans[1]+"}");
-        }
+        // int [] ans = optimizedTwoSum(new int [] {0,12,15,15,27,31}, 27);
+        // if (ans.length == 0)
+        // {
+        //     System.out.println("{}");
+        // }else {
+        //     System.out.println("{"+ans[0]+"," +ans[1]+"}");
+        // }
 
 
-        String s="anagram";
-        String t="nagaram";
+        String s="anandan";
+        String t="nandana";
+        System.out.println(isAnagram(s, t));
 
     }
 
@@ -100,6 +101,41 @@ import java.util.HashMap;
     }
 
 
+
+    /**
+     * Given two strings s and t, my goal was to determine if t is an anagram of s.
+     * An anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+     * Safe to assume that the strings contain only lowercase alphabets.
+     * Solutions :-
+     *            1. Brute Force : You can obviously sort both the strings and compare them, if they are equal then t is an anagram of s. 
+     *                             But this approach takes O(nlogn) time complexity and O(n) space complexity which is not optimal.
+     *            2. HashMap : You can use a HashMap to store the frequency of each character in s and then iterate through t to check 
+     *                         if the frequency of each character matches with the frequency in s. But this approach takes O(n) time complexity 
+     *                          and O(n) space complexity which is not optimal.
+     *            3. Array : Think of the fact that the characters in the strings are limited to 26 lowercase English letters. This makes it
+     *                       capped to fixed size of 26. So we could probably use an Array of size 26, then you run through the first string 
+     *                       and increment the frequency of each character in the array, then run through the second string and decrement the 
+     *                       frequency of each character in the array. If at the end all the frequencies are 0, then t is an anagram of s.
+     *                       This approach takes O(n) time complexity and O(1) space complexity which is optimal. 
+     */
+
+    private static boolean isAnagram(String s, String t){
+        if (s.length() != t.length()) return false;
+        
+        int [] arr = new int[26];
+
+        for (int i = 0; i < s.length(); i++) {
+            ++arr[s.charAt(i) - 'a'];
+            --arr[t.charAt(i) - 'a'];
+    
+        }
+
+        for (int i : arr) {
+            if (i != 0) return false;
+        }
+        return true;
+
+    }
 
 
 }
